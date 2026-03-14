@@ -42,7 +42,10 @@ class SettingsFragment : Fragment() {
         binding.tvUsername.text = "Signed in as: ${SessionManager.getUsernameBlocking()}"
         binding.tvServerUrl.text = "Server: ${SessionManager.getServerUrlBlocking()}"
 
-        if (!isAdmin) binding.cardAdmin.visibility = View.GONE
+        if (!isAdmin) {
+            binding.cardAdmin.visibility = View.GONE
+            binding.cardOllama.visibility = View.GONE
+        }
 
         loadSettings()
         setupListeners()

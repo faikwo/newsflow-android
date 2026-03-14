@@ -188,6 +188,7 @@
 
         <!-- AI / Ollama card -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_ollama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"

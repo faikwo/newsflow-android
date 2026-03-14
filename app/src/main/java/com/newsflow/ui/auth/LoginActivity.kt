@@ -89,6 +89,8 @@ class LoginActivity : AppCompatActivity() {
                         result.data.username,
                         result.data.isAdmin
                     )
+                    // Fetch user profile to get email
+                    fetchUserEmail()
                     goToMain()
                 }
                 is ApiResult.Error -> { setLoading(false); showError(result.message) }
@@ -105,12 +107,20 @@ class LoginActivity : AppCompatActivity() {
                         SessionManager.getServerUrlBlocking()!!,
                         result.data.accessToken,
                         result.data.username,
-                        result.data.isAdmin
+                        result.data.isAdmin,
+                        email
                     )
                     goToMain()
                 }
                 is ApiResult.Error -> { setLoading(false); showError(result.message) }
             }
+        }
+    }
+
+    private suspend fun fetchUserEmail() {
+        when (val r = ApiRepository.getMe()) {
+            is ApiResult.Success -> SessionManager.saveEmail(r.data.email)
+            else -> {}
         }
     }
 

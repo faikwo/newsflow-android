@@ -12,6 +12,7 @@ import com.newsflow.api.ApiRepository
 import com.newsflow.api.ApiResult
 import com.newsflow.data.DigestScheduleUpdate
 import com.newsflow.databinding.FragmentDigestBinding
+import com.newsflow.utils.SessionManager
 import kotlinx.coroutines.launch
 
 class DigestFragment : Fragment() {
@@ -31,6 +32,10 @@ class DigestFragment : Fragment() {
 
         binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
+        // Email field is read-only - uses registered email
+        binding.etEmail.isEnabled = false
+        binding.etEmail.isFocusable = false
+
         loadSchedule()
         binding.btnPickTime.setOnClickListener { showTimePicker() }
         binding.btnSave.setOnClickListener { saveSchedule() }
@@ -48,7 +53,8 @@ class DigestFragment : Fragment() {
                     currentHour = s.hour
                     currentMinute = s.minute
                     updateTimeDisplay()
-                    binding.etEmail.setText(s.email ?: "")
+                    // Display registered email (read-only)
+                    binding.etEmail.setText(SessionManager.getEmailBlocking() ?: s.email ?: "")
                     binding.tvLastSent.text = if (s.lastSent != null) "Last sent: ${s.lastSent}" else ""
                     binding.tvNextSend.text = if (s.nextSend != null) "Next: ${s.nextSend}" else ""
                 }
@@ -90,7 +96,7 @@ class DigestFragment : Fragment() {
                 enabled = binding.switchEnabled.isChecked,
                 hour = currentHour,
                 minute = currentMinute,
-                email = binding.etEmail.text.toString().trim().ifBlank { null }
+                email = SessionManager.getEmailBlocking()
             )
             when (val r = ApiRepository.updateDigestSchedule(update)) {
                 is ApiResult.Success -> { Snackbar.make(binding.root, "Schedule saved ✓", Snackbar.LENGTH_SHORT).show(); loadSchedule() }

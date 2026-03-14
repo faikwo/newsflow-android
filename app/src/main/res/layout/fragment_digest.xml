@@ -81,12 +81,14 @@
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:hint="Delivery email address"
+                        android:hint="Registered email address (read-only)"
                         android:layout_marginBottom="16dp">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_email"
                             android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textEmailAddress"
+                            android:enabled="false"
+                            android:focusable="false" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
