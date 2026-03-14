@@ -18,7 +18,7 @@ Native Android client for your self-hosted NewsFlow news aggregator.
 - Android Studio Iguana (2023.2.1) or newer
 - Android SDK 34 · minSdk 26 (Android 8.0+)
 - Java 17 / Kotlin 1.9
-- A running [NewsFlow](../newsflow/) server
+- A running [NewsFlow](https://github.com/faikwo/newsflow) server
 
 ## Quick Start
 
