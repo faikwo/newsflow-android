@@ -24,6 +24,7 @@ class SavedFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: ArticleAdapter
     private var savedArticles = mutableListOf<com.newsflow.data.Article>()
+    private var isFirstLoad = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
@@ -54,6 +55,15 @@ class SavedFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         loadSaved()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Reload when coming back to this tab (e.g., after saving from Feed)
+        if (!isFirstLoad) {
+            loadSaved()
+        }
+        isFirstLoad = false
     }
 
     private fun loadSaved() {
