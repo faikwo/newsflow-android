@@ -135,7 +135,7 @@ class SettingsFragment : Fragment() {
 
         // Source code click
         binding.btnSourceCode.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/newsflow"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/faikwo/newsflow-android"))
             startActivity(intent)
         }
     }
