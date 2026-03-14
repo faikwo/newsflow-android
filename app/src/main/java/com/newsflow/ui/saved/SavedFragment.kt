@@ -20,6 +20,7 @@ class SavedFragment : Fragment() {
     private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ArticleAdapter
+    private var savedArticles = mutableListOf<com.newsflow.data.Article>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
@@ -39,13 +40,10 @@ class SavedFragment : Fragment() {
             onDislike = { article ->
                 interact(article.id, if (article.userAction == "dislike") "remove" else "dislike")
             },
-            onHide = { article -> interact(article.id, "hide") },
+            onHide = { article -> removeHidden(article.id) },
             onSave = { article ->
-                // Unsave from this list
-                lifecycleScope.launch {
-                    ApiRepository.interact(article.id, "unsave")
-                    loadSaved()
-                }
+                // Unsave from this list - remove immediately
+                removeUnsaved(article.id)
             }
         )
 
@@ -61,9 +59,11 @@ class SavedFragment : Fragment() {
             when (val result = ApiRepository.getSavedArticles()) {
                 is ApiResult.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    adapter.submitList(result.data.articles)
-                    binding.tvEmpty.visibility = if (result.data.articles.isEmpty()) View.VISIBLE else View.GONE
-                    binding.tvCount.text = "${result.data.total} saved"
+                    savedArticles.clear()
+                    savedArticles.addAll(result.data.articles)
+                    adapter.submitList(savedArticles.toList())
+                    binding.tvEmpty.visibility = if (savedArticles.isEmpty()) View.VISIBLE else View.GONE
+                    binding.tvCount.text = "${savedArticles.size} saved"
                 }
                 is ApiResult.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -74,7 +74,46 @@ class SavedFragment : Fragment() {
     }
 
     private fun interact(articleId: Int, action: String) {
-        lifecycleScope.launch { ApiRepository.interact(articleId, action) }
+        lifecycleScope.launch {
+            ApiRepository.interact(articleId, action)
+            // Update the local action state without removing
+            val updated = savedArticles.map { article ->
+                if (article.id == articleId) {
+                    val newAction = when (action) {
+                        "remove" -> null
+                        else -> action
+                    }
+                    article.copy(userAction = newAction)
+                } else article
+            }
+            savedArticles.clear()
+            savedArticles.addAll(updated)
+            adapter.submitList(savedArticles.toList())
+        }
+    }
+
+    private fun removeHidden(articleId: Int) {
+        lifecycleScope.launch {
+            // Send to server first
+            ApiRepository.interact(articleId, "hide")
+            // Remove immediately with animation
+            savedArticles.removeAll { it.id == articleId }
+            adapter.submitList(savedArticles.toList())
+            binding.tvEmpty.visibility = if (savedArticles.isEmpty()) View.VISIBLE else View.GONE
+            binding.tvCount.text = "${savedArticles.size} saved"
+        }
+    }
+
+    private fun removeUnsaved(articleId: Int) {
+        lifecycleScope.launch {
+            // Send to server first
+            ApiRepository.interact(articleId, "unsave")
+            // Remove immediately with animation
+            savedArticles.removeAll { it.id == articleId }
+            adapter.submitList(savedArticles.toList())
+            binding.tvEmpty.visibility = if (savedArticles.isEmpty()) View.VISIBLE else View.GONE
+            binding.tvCount.text = "${savedArticles.size} saved"
+        }
     }
 
     override fun onDestroyView() {

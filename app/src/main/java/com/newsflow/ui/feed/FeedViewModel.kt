@@ -170,27 +170,46 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
 
     fun interact(articleId: Int, action: String) {
         viewModelScope.launch {
+            // Send interaction to server first (source of truth)
             ApiRepository.interact(articleId, action)
-            val updated = allArticles.map { article ->
-                if (article.id == articleId) {
-                    val newAction = when (action) {
-                        "remove", "unsave" -> null
-                        else -> action
+
+            if (action == "hide") {
+                // Remove immediately with animation - server already knows
+                val hiddenArticle = allArticles.find { it.id == articleId }
+                allArticles.removeAll { it.id == articleId }
+                _articles.value = allArticles.toList()
+
+                // Update cache - remove hidden article
+                hiddenArticle?.let {
+                    try {
+                        articleDao.deleteArticle(it.id)
+                    } catch (e: Exception) {
+                        // Silently fail
                     }
-                    article.copy(userAction = newAction)
-                } else article
-            }
-            allArticles.clear()
-            allArticles.addAll(updated)
-            _articles.value = allArticles.toList()
-            
-            // Update the cached article as well
-            val updatedEntity = allArticles.find { it.id == articleId }
-            updatedEntity?.let {
-                try {
-                    articleDao.insertArticle(it.toEntity())
-                } catch (e: Exception) {
-                    // Silently fail
+                }
+            } else {
+                // For other actions (like, dislike, save), just update the action state
+                val updated = allArticles.map { article ->
+                    if (article.id == articleId) {
+                        val newAction = when (action) {
+                            "remove", "unsave" -> null
+                            else -> action
+                        }
+                        article.copy(userAction = newAction)
+                    } else article
+                }
+                allArticles.clear()
+                allArticles.addAll(updated)
+                _articles.value = allArticles.toList()
+
+                // Update the cached article as well
+                val updatedEntity = allArticles.find { it.id == articleId }
+                updatedEntity?.let {
+                    try {
+                        articleDao.insertArticle(it.toEntity())
+                    } catch (e: Exception) {
+                        // Silently fail
+                    }
                 }
             }
         }
