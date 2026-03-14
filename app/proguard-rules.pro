@@ -1,0 +1,6 @@
+-keep class com.newsflow.data.** { *; }
+-keep class com.newsflow.api.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn okhttp3.**
+-dontwarn retrofit2.**

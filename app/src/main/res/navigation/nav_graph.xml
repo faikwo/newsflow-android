@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/feedFragment">
+
+    <fragment android:id="@+id/feedFragment"
+        android:name="com.newsflow.ui.feed.FeedFragment"
+        android:label="Feed">
+        <action android:id="@+id/action_feed_to_article"
+            app:destination="@id/articleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment android:id="@+id/topicsFragment"
+        android:name="com.newsflow.ui.topics.TopicsFragment"
+        android:label="Topics" />
+
+    <fragment android:id="@+id/savedFragment"
+        android:name="com.newsflow.ui.saved.SavedFragment"
+        android:label="Saved">
+        <action android:id="@+id/action_saved_to_article"
+            app:destination="@id/articleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment android:id="@+id/statsFragment"
+        android:name="com.newsflow.ui.stats.StatsFragment"
+        android:label="Stats" />
+
+    <fragment android:id="@+id/settingsFragment"
+        android:name="com.newsflow.ui.settings.SettingsFragment"
+        android:label="Settings">
+        <action android:id="@+id/action_settings_to_digest"
+            app:destination="@id/digestFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment android:id="@+id/digestFragment"
+        android:name="com.newsflow.ui.digest.DigestFragment"
+        android:label="Email Digest" />
+
+    <fragment android:id="@+id/articleFragment"
+        android:name="com.newsflow.ui.article.ArticleFragment"
+        android:label="Article">
+        <argument android:name="article"
+            app:argType="com.newsflow.data.Article" />
+    </fragment>
+
+</navigation>

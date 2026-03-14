@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:title="Settings" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <!-- App Preferences card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp">
+            <LinearLayout 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:padding="16dp">
+
+                <TextView 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:text="App Preferences" 
+                    android:textSize="16sp" 
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" 
+                    android:layout_marginBottom="12dp" />
+
+                <!-- FAB Refresh toggle -->
+                <LinearLayout 
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" 
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        
+                        <TextView 
+                            android:layout_width="wrap_content" 
+                            android:layout_height="wrap_content"
+                            android:text="@string/show_fab_refresh"
+                            android:textSize="14sp" 
+                            android:textColor="@color/text_primary" />
+                            
+                        <TextView 
+                            android:layout_width="wrap_content" 
+                            android:layout_height="wrap_content"
+                            android:text="@string/show_fab_refresh_summary"
+                            android:textSize="12sp" 
+                            android:textColor="@color/text_secondary" />
+                    </LinearLayout>
+                    
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_show_fab_refresh"
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- Image Preloading toggle -->
+                <LinearLayout 
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" 
+                    android:gravity="center_vertical">
+                    
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        
+                        <TextView 
+                            android:layout_width="wrap_content" 
+                            android:layout_height="wrap_content"
+                            android:text="@string/image_preloading"
+                            android:textSize="14sp" 
+                            android:textColor="@color/text_primary" />
+                            
+                        <TextView 
+                            android:layout_width="wrap_content" 
+                            android:layout_height="wrap_content"
+                            android:text="@string/image_preloading_summary"
+                            android:textSize="12sp" 
+                            android:textColor="@color/text_secondary" />
+                    </LinearLayout>
+                    
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_image_preload"
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Account card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp">
+            <LinearLayout 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:padding="16dp">
+
+                <TextView 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:text="Account" 
+                    android:textSize="16sp" 
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" 
+                    android:layout_marginBottom="10dp" />
+
+                <TextView 
+                    android:id="@+id/tv_username" 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" 
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary" 
+                    android:layout_marginBottom="4dp" />
+
+                <TextView 
+                    android:id="@+id/tv_server_url" 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" 
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary" 
+                    android:layout_marginBottom="14dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_digest"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="📧  Email Digest Settings"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_change_server"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="Change Server" 
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_logout"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="Sign Out" 
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_delete_account"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="Delete Account"
+                    android:textColor="@color/error" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- AI / Ollama card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp">
+            <LinearLayout 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:padding="16dp">
+
+                <TextView 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:text="AI — Ollama" 
+                    android:textSize="16sp" 
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" 
+                    android:layout_marginBottom="12dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:hint="Ollama URL (e.g. http://192.168.1.100:11434)"
+                    android:layout_marginBottom="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_ollama_url" 
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" 
+                        android:inputType="textUri" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:hint="Model (e.g. mistral-nemo)"
+                    android:layout_marginBottom="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_ollama_model" 
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" 
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout 
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" 
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+                    
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_test_ollama"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content"
+                        android:text="Test" 
+                        android:layout_marginEnd="12dp" />
+                    
+                    <TextView 
+                        android:id="@+id/tv_ollama_status" 
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" 
+                        android:layout_weight="1"
+                        android:textSize="13sp" 
+                        android:textColor="@color/text_secondary"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout 
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" 
+                    android:gravity="center_vertical">
+                    
+                    <TextView 
+                        android:layout_width="0dp" 
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" 
+                        android:text="Auto-summarize new articles"
+                        android:textSize="14sp" 
+                        android:textColor="@color/text_primary" />
+                    
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_auto_summarize"
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Feed card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp">
+            <LinearLayout 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:padding="16dp">
+
+                <TextView 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:text="Feed" 
+                    android:textSize="16sp" 
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" 
+                    android:layout_marginBottom="12dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:hint="Auto-refresh interval (minutes)"
+                    android:layout_marginBottom="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_refresh_interval" 
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" 
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:hint="Max articles per topic"
+                    android:layout_marginBottom="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_max_articles" 
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" 
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:hint="NewsAPI.org API key (optional)">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_news_api_key" 
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" 
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Admin card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp">
+            <LinearLayout 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:padding="16dp">
+
+                <TextView 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:text="👑 Admin" 
+                    android:textSize="16sp" 
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" 
+                    android:layout_marginBottom="12dp" />
+
+                <LinearLayout 
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" 
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+                    
+                    <TextView 
+                        android:layout_width="0dp" 
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" 
+                        android:text="Allow new registrations"
+                        android:textSize="14sp" 
+                        android:textColor="@color/text_primary" />
+                    
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_allow_signups"
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_manage_users"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="Manage Users" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- About card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp">
+            <LinearLayout 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:padding="16dp">
+
+                <TextView 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:text="@string/about" 
+                    android:textSize="16sp" 
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" 
+                    android:layout_marginBottom="12dp" />
+
+                <TextView 
+                    android:id="@+id/tv_version" 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" 
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary" 
+                    android:layout_marginBottom="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_license"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="@string/license"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_third_party"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="@string/third_party_libraries"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_source_code"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="@string/source_code" />
+
+                <TextView 
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="@string/powered_by"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:textAlignment="center"
+                    android:layout_marginTop="16dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Save button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="24dp"
+            android:text="Save Settings" />
+
+    </LinearLayout>
+</ScrollView>

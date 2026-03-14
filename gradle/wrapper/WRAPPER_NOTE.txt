@@ -1,0 +1,1 @@
+NOTE: gradle-wrapper.jar could not be downloaded. Run 'gradle wrapper --gradle-version 8.2' in the project root, or open in Android Studio which will handle this automatically.

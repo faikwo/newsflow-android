@@ -1,0 +1,53 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <!-- Background circle -->
+    <path
+        android:fillColor="#2A2A45"
+        android:pathData="M60,60m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0" />
+    
+    <!-- Newspaper body -->
+    <path
+        android:fillColor="#9090B0"
+        android:pathData="M35,35L85,35L85,85L35,85Z" />
+    
+    <!-- Newspaper fold line -->
+    <path
+        android:fillColor="#6A6A8A"
+        android:pathData="M60,35L60,85" />
+    
+    <!-- Header line -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M40,45L55,45L55,50L40,50Z" />
+    
+    <!-- Content lines left -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M40,55L55,55L55,57L40,57Z" />
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M40,60L55,60L55,62L40,62Z" />
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M40,65L55,65L55,67L40,67Z" />
+    
+    <!-- Image placeholder right -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M65,45L80,45L80,60L65,60Z" />
+    
+    <!-- Content lines right -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M65,65L80,65L80,67L65,67Z" />
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M65,70L80,70L80,72L65,72Z" />
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M65,75L75,75L75,77L65,77Z" />
+
+</vector>
