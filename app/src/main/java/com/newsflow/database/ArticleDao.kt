@@ -37,6 +37,6 @@ interface ArticleDao {
     @Query("SELECT * FROM articles ORDER BY published_at DESC LIMIT :limit")
     suspend fun getRecentArticles(limit: Int): List<ArticleEntity>
     
-    @Query("SELECT * FROM articles WHERE user_action = 'save_later' ORDER BY published_at DESC")
+    @Query("SELECT * FROM articles WHERE user_action = 'save' ORDER BY published_at DESC")
     fun getSavedArticles(): Flow<List<ArticleEntity>>
 }

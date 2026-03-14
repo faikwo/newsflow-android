@@ -11,8 +11,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.newsflow.R
 import com.newsflow.api.ApiRepository
 import com.newsflow.api.ApiResult
+import com.newsflow.database.AppDatabase
+import com.newsflow.database.toArticle
 import com.newsflow.databinding.FragmentSavedBinding
 import com.newsflow.ui.feed.ArticleAdapter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class SavedFragment : Fragment() {
@@ -56,6 +59,19 @@ class SavedFragment : Fragment() {
     private fun loadSaved() {
         binding.progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
+            val articleDao = AppDatabase.getDatabase(requireContext()).articleDao()
+            
+            // First, load from local cache immediately (fast, works offline)
+            val cachedArticles = articleDao.getSavedArticles().first()
+            if (cachedArticles.isNotEmpty()) {
+                savedArticles.clear()
+                savedArticles.addAll(cachedArticles.map { it.toArticle() })
+                adapter.submitList(savedArticles.toList())
+                binding.tvEmpty.visibility = if (savedArticles.isEmpty()) View.VISIBLE else View.GONE
+                binding.tvCount.text = "${savedArticles.size} saved"
+            }
+
+            // Then, fetch from API to sync with server
             when (val result = ApiRepository.getSavedArticles()) {
                 is ApiResult.Success -> {
                     binding.progressBar.visibility = View.GONE
@@ -67,7 +83,10 @@ class SavedFragment : Fragment() {
                 }
                 is ApiResult.Error -> {
                     binding.progressBar.visibility = View.GONE
-                    Snackbar.make(binding.root, result.message, Snackbar.LENGTH_LONG).show()
+                    // Only show error if we don't have cached data
+                    if (savedArticles.isEmpty()) {
+                        Snackbar.make(binding.root, result.message, Snackbar.LENGTH_LONG).show()
+                    }
                 }
             }
         }
